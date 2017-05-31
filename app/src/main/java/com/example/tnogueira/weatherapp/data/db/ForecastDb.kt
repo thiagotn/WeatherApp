@@ -1,6 +1,7 @@
 package com.example.tnogueira.weatherapp.data.db
 
 import android.text.method.TextKeyListener.clear
+import com.example.tnogueira.weatherapp.domain.datasource.ForecastDataSource
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
 import com.example.tnogueira.weatherapp.extensions.clear
 import com.example.tnogueira.weatherapp.extensions.parseList
@@ -13,9 +14,9 @@ import org.jetbrains.anko.db.select
  * Created by tnogueira on 30/05/17.
  */
 class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
-                 val dataMapper: DbDataMapper = DbDataMapper()) {
+                 val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
 
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
 
         var dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
         var dailyForecast = select(DayForecastTable.NAME)
