@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.tnogueira.weatherapp.R
 import com.example.tnogueira.weatherapp.domain.model.Forecast
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
+import com.example.tnogueira.weatherapp.extensions.toDateString
 import com.example.tnogueira.weatherapp.ui.utils.ctx
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_forecast.view.*
@@ -15,8 +16,7 @@ import kotlinx.android.synthetic.main.item_forecast.view.*
 /**
  * Created by tnogueira on 26/05/17.
  */
-class ForecastListAdapter(val weekForecast: ForecastList,
-                          val itemClick: (Forecast) -> Unit) :
+class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Unit) :
         RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +35,7 @@ class ForecastListAdapter(val weekForecast: ForecastList,
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
-                itemView.date.text = date
+                itemView.date.text = date.toDateString()
                 itemView.description.text = description
                 itemView.maxTemperature.text = "${high}"
                 itemView.minTemperature.text = "${low}"

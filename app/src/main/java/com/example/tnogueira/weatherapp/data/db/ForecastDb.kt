@@ -2,11 +2,9 @@ package com.example.tnogueira.weatherapp.data.db
 
 import android.text.method.TextKeyListener.clear
 import com.example.tnogueira.weatherapp.domain.datasource.ForecastDataSource
+import com.example.tnogueira.weatherapp.domain.model.Forecast
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
-import com.example.tnogueira.weatherapp.extensions.clear
-import com.example.tnogueira.weatherapp.extensions.parseList
-import com.example.tnogueira.weatherapp.extensions.parseOpt
-import com.example.tnogueira.weatherapp.extensions.toVarargArray
+import com.example.tnogueira.weatherapp.extensions.*
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
@@ -28,6 +26,13 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
                 .parseOpt { CityForecast(HashMap(it), dailyForecast )}
 
         if (city != null) dataMapper.convertToDomain(city) else null
+    }
+
+    override fun requestDayForecast(id: Long) = forecastDbHelper.use {
+        val forecast = select(DayForecastTable.NAME).byId(id).
+                parseOpt { DayForecast(HashMap(it)) }
+
+        if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
     }
 
     fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {

@@ -2,6 +2,7 @@ package com.example.tnogueira.weatherapp.domain.datasource
 
 import com.example.tnogueira.weatherapp.data.db.ForecastDb
 import com.example.tnogueira.weatherapp.data.server.ForecastServer
+import com.example.tnogueira.weatherapp.domain.model.Forecast
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
 import com.example.tnogueira.weatherapp.extensions.firstResult
 
@@ -15,15 +16,16 @@ class ForecastProvider(val sources: List<ForecastDataSource> = ForecastProvider.
         val SOURCES = listOf(ForecastDb(), ForecastServer())
     }
 
-    fun requestByZipCode(zipCode: Long, days: Int): ForecastList
-            = sources.firstResult { requestSource(it, days, zipCode) }
-
-    private fun requestSource(source: ForecastDataSource, days: Int, zipCode: Long): ForecastList? {
-        val res = source.requestForecastByZipCode(zipCode, todayTimeSpan())
-        return if (res != null && res.size >= days) res else null
+    fun requestByZipCode(zipCode: Long, days: Int): ForecastList = requestToSources {
+        val res = it.requestForecastByZipCode(zipCode, todayTimeSpan())
+        if (res != null && res.size >= days) res else null
     }
 
+    fun requestForecast(id: Long): Forecast = requestToSources { it.requestDayForecast(id) }
+
     private fun todayTimeSpan() = System.currentTimeMillis() / DAY_IN_MILLIS
+
+    private fun<T : Any> requestToSources(f: (ForecastDataSource) -> T?): T = sources.firstResult { f(it)}
 }
 
 
