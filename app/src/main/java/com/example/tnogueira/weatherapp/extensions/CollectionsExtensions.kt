@@ -1,9 +1,11 @@
 package com.example.tnogueira.weatherapp.extensions
 
+import java.util.*
+
 /**
  * Created by tnogueira on 30/05/17.
  */
-fun<K, V : Any> Map<K, V?>.toVarargArray(): Array<out Pair<K, V>> =
+fun <K, V : Any> Map<K, V?>.toVarargArray(): Array<out Pair<K, V>> =
         map({ Pair(it.key, it.value!!) }).toTypedArray()
 
 inline fun <T, R : Any> Iterable<T>.firstResult(predicate: (T) -> R?): R {

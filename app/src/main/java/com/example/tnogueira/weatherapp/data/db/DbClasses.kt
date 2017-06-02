@@ -1,5 +1,7 @@
 package com.example.tnogueira.weatherapp.data.db
 
+import java.util.*
+
 /**
  * Created by tnogueira on 30/05/17.
  */

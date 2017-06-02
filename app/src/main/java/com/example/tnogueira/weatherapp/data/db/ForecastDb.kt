@@ -1,12 +1,11 @@
 package com.example.tnogueira.weatherapp.data.db
 
-import android.text.method.TextKeyListener.clear
 import com.example.tnogueira.weatherapp.domain.datasource.ForecastDataSource
-import com.example.tnogueira.weatherapp.domain.model.Forecast
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
 import com.example.tnogueira.weatherapp.extensions.*
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
+import java.util.*
 
 /**
  * Created by tnogueira on 30/05/17.
@@ -16,14 +15,14 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
 
     override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
 
-        var dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
-        var dailyForecast = select(DayForecastTable.NAME)
+        val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
+        val dailyForecast = select(DayForecastTable.NAME)
                 .whereSimple(dailyRequest, zipCode.toString(), date.toString())
                 .parseList { DayForecast(HashMap(it)) }
 
-        var city = select(CityForecastTable.NAME)
+        val city = select(CityForecastTable.NAME)
                 .whereSimple("${CityForecastTable.ID} = ?", zipCode.toString())
-                .parseOpt { CityForecast(HashMap(it), dailyForecast )}
+                .parseOpt { CityForecast(HashMap(it), dailyForecast) }
 
         if (city != null) dataMapper.convertToDomain(city) else null
     }
@@ -42,7 +41,7 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
 
         with(dataMapper.convertFromDomain(forecast)) {
             insert(CityForecastTable.NAME, *map.toVarargArray())
-            dailyForecast.forEach { insert(DayForecastTable.NAME, *it.map.toVarargArray())}
+            dailyForecast.forEach { insert(DayForecastTable.NAME, *it.map.toVarargArray()) }
         }
     }
 }

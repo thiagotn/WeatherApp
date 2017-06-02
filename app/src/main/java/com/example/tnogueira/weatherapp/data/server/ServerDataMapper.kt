@@ -5,9 +5,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import com.example.tnogueira.weatherapp.domain.model.Forecast as ModelForecast
 
-/**
- * Created by tnogueira on 29/05/17.
- */
 class ServerDataMapper {
 
     fun convertToDomain(zipCode: Long, forecast: ForecastResult) = with(forecast) {
@@ -26,5 +23,5 @@ class ServerDataMapper {
                 generateIconUrl(weather[0].icon))
     }
 
-    private fun  generateIconUrl(iconCode: String) = "http://openweathermap.org/img/w/$iconCode.png"
+    private fun generateIconUrl(iconCode: String) = "http://openweathermap.org/img/w/$iconCode.png"
 }

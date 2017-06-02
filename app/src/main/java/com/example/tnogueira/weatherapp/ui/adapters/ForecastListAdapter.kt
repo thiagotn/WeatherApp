@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import com.example.tnogueira.weatherapp.R
 import com.example.tnogueira.weatherapp.domain.model.Forecast
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
+import com.example.tnogueira.weatherapp.extensions.ctx
 import com.example.tnogueira.weatherapp.extensions.toDateString
-import com.example.tnogueira.weatherapp.ui.utils.ctx
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_forecast.view.*
 
@@ -28,7 +28,7 @@ class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: (Foreca
         holder.bindForecast(weekForecast[position])
     }
 
-    override fun getItemCount(): Int = weekForecast.size
+    override fun getItemCount() = weekForecast.size
 
     class ViewHolder(view: View, val itemClick: (Forecast) -> Unit) : RecyclerView.ViewHolder(view) {
 
@@ -37,9 +37,9 @@ class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: (Foreca
                 Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
                 itemView.date.text = date.toDateString()
                 itemView.description.text = description
-                itemView.maxTemperature.text = "${high}"
-                itemView.minTemperature.text = "${low}"
-                itemView.setOnClickListener{ itemClick(this) }
+                itemView.maxTemperature.text = "${high}º"
+                itemView.minTemperature.text = "${low}º"
+                itemView.setOnClickListener { itemClick(this) }
             }
         }
     }

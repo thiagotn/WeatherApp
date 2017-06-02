@@ -1,7 +1,7 @@
 package com.example.tnogueira.weatherapp.ui
 
 import android.app.Application
-import com.example.tnogueira.weatherapp.ui.utils.DelegatesExt
+import com.example.tnogueira.weatherapp.extensions.DelegatesExt
 
 /**
  * Created by tnogueira on 30/05/17.

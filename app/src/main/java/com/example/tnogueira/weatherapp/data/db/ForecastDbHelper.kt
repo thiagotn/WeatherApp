@@ -24,6 +24,7 @@ class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(ct
                 CityForecastTable.COUNTRY to TEXT)
 
         db.createTable(DayForecastTable.NAME, true,
+                DayForecastTable.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 DayForecastTable.DATE to INTEGER,
                 DayForecastTable.DESCRIPTION to TEXT,
                 DayForecastTable.HIGH to INTEGER,
@@ -38,3 +39,4 @@ class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(ct
         onCreate(db)
     }
 }
+

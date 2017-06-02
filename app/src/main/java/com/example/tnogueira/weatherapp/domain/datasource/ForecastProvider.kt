@@ -12,7 +12,7 @@ import com.example.tnogueira.weatherapp.extensions.firstResult
 class ForecastProvider(val sources: List<ForecastDataSource> = ForecastProvider.SOURCES) {
 
     companion object {
-        val DAY_IN_MILLIS = 1000 * 60 * 24
+        val DAY_IN_MILLIS = 1000 * 60 * 60 * 24
         val SOURCES = listOf(ForecastDb(), ForecastServer())
     }
 
@@ -23,9 +23,7 @@ class ForecastProvider(val sources: List<ForecastDataSource> = ForecastProvider.
 
     fun requestForecast(id: Long): Forecast = requestToSources { it.requestDayForecast(id) }
 
-    private fun todayTimeSpan() = System.currentTimeMillis() / DAY_IN_MILLIS
+    private fun todayTimeSpan() = System.currentTimeMillis() / DAY_IN_MILLIS * DAY_IN_MILLIS
 
-    private fun<T : Any> requestToSources(f: (ForecastDataSource) -> T?): T = sources.firstResult { f(it)}
+    private fun <T : Any> requestToSources(f: (ForecastDataSource) -> T?): T = sources.firstResult { f(it) }
 }
-
-

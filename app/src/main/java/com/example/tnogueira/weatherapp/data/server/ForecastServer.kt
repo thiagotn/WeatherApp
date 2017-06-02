@@ -2,7 +2,6 @@ package com.example.tnogueira.weatherapp.data.server
 
 import com.example.tnogueira.weatherapp.data.db.ForecastDb
 import com.example.tnogueira.weatherapp.domain.datasource.ForecastDataSource
-import com.example.tnogueira.weatherapp.domain.model.Forecast
 import com.example.tnogueira.weatherapp.domain.model.ForecastList
 
 /**

@@ -18,7 +18,7 @@ class DbDataMapper {
     }
 
     fun convertToDomain(forecast: CityForecast) = with(forecast) {
-        var daily = dailyForecast.map { convertDayToDomain(it) }
+        val daily = dailyForecast.map { convertDayToDomain(it) }
         ForecastList(_id, city, country, daily)
     }
 

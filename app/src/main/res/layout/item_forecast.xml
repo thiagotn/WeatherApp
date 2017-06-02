@@ -55,7 +55,7 @@
             android:id="@+id/minTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             tools:text="15º"/>
 
     </LinearLayout>
